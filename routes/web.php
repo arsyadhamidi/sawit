@@ -9,10 +9,12 @@ use App\Http\Controllers\Admin\AdminPembelianController;
 use App\Http\Controllers\Admin\AdminPeminjamanController;
 use App\Http\Controllers\Admin\AdminPenjualanController;
 use App\Http\Controllers\Admin\AdminPetaniController;
+use App\Http\Controllers\Admin\AdminUpahController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrasiController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Landing\LandingController;
 use App\Http\Controllers\Pemilik\PemilikPembelianController;
 use App\Http\Controllers\Pemilik\PemilikPenjualanController;
 use App\Http\Controllers\Petani\PetaniHargaSawitController;
@@ -36,6 +38,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
+
+//  Landing
+Route::get('/', [LandingController::class, 'index']);
 
 //  Login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -65,6 +70,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     // Admin
     Route::group(['middleware' => [CekLevel::class . ':1']], function () {
+
+        // Upah
+        Route::get('/data-upah', [AdminUpahController::class, 'index'])->name('data-upah.index');
 
         // Gaji Pekerja
         Route::post('/data-gajipekerja/store', [AdminGajiPekerjaController::class, 'store'])->name('data-gajipekerja.store');

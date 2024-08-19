@@ -25,4 +25,9 @@ class Pekerja extends Model
     {
         return $this->hasOne(Gaji::class, 'pekerja_id');
     }
+
+    public function upah()
+    {
+        return $this->hasOne(Upah::class, 'pekerja_id');
+    }
 }

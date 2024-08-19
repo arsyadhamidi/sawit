@@ -309,6 +309,8 @@
                                             href="{{ route('data-jadwalpanen.index') }}">Jadwal Panen</a></li>
                                     <li class="nav-item"> <a class="nav-link @yield('menuDataHargaSawit')"
                                             href="{{ route('data-hargasawit.index') }}">Harga Sawit</a></li>
+                                    <li class="nav-item"> <a class="nav-link @yield('menuDataUpah')"
+                                            href="{{ route('data-upah.index') }}">Gaji Pekerja</a></li>
                                 </ul>
                             </div>
                         </li>
