@@ -73,6 +73,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         // Upah
         Route::get('/data-upah', [AdminUpahController::class, 'index'])->name('data-upah.index');
+        Route::get('/data-upah/create', [AdminUpahController::class, 'create'])->name('data-upah.create');
+        Route::post('/data-upah/store', [AdminUpahController::class, 'store'])->name('data-upah.store');
 
         // Gaji Pekerja
         Route::post('/data-gajipekerja/store', [AdminGajiPekerjaController::class, 'store'])->name('data-gajipekerja.store');

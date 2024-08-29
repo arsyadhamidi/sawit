@@ -3,6 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\HargaSawit;
+use App\Models\JadwalPanen;
+use App\Models\Level;
+use App\Models\Pekerja;
+use App\Models\Pembelian;
+use App\Models\Peminjaman;
+use App\Models\Penjualan;
 use App\Models\Petani;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,8 +19,24 @@ class DashboardController extends Controller
     public function index()
     {
         $users = User::count();
+        $levels = Level::count();
+        $petanis = Petani::count();
+        $pekerjas = Pekerja::count();
+        $jadwals = JadwalPanen::count();
+        $hargas = HargaSawit::count();
+        $pembelians = Pembelian::count();
+        $penjualans = Penjualan::count();
+        $peminjamans = Peminjaman::count();
         return view('admin.dashboard.index', [
             'users' => $users,
+            'levels' => $levels,
+            'petanis' => $petanis,
+            'pekerjas' => $pekerjas,
+            'jadwals' => $jadwals,
+            'hargas' => $hargas,
+            'pembelians' => $pembelians,
+            'penjualans' => $penjualans,
+            'peminjamans' => $peminjamans,
         ]);
     }
 

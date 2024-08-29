@@ -30,4 +30,14 @@ class Pekerja extends Model
     {
         return $this->hasOne(Upah::class, 'pekerja_id');
     }
+
+    public function pembeliansSebagaiSupir()
+    {
+        return $this->hasMany(Pembelian::class, 'supir_id');
+    }
+
+    public function pembeliansSebagaiPemuat()
+    {
+        return $this->hasMany(Pembelian::class, 'pemuat_id');
+    }
 }
