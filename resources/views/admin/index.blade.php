@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mb-4">
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -117,3 +117,80 @@
         </div>
     </div>
 </div>
+
+<div class="row mb-4">
+    <div class="col-lg">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Diagram Pembelian</h4>
+                <div>
+                    <canvas id="pembelianChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-lg">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Diagram Penjualan</h4>
+                <div>
+                    <canvas id="penjualanChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('custom-script')
+    <script>
+        const pembelianCtx = document.getElementById('pembelianChart').getContext('2d');
+        const pembelianData = @json(array_values($pembelianPerBulan));
+        const bulanLabels = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+            'Oktober', 'November', 'Desember'
+        ];
+
+        new Chart(pembelianCtx, {
+            type: 'bar',
+            data: {
+                labels: bulanLabels,
+                datasets: [{
+                    label: 'Jumlah Pembelian',
+                    data: pembelianData,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const penjualanCtx = document.getElementById('penjualanChart').getContext('2d');
+        const penjualanData = @json(array_values($penjualanPerBulan));
+
+        new Chart(penjualanCtx, {
+            type: 'bar',
+            data: {
+                labels: bulanLabels,
+                datasets: [{
+                    label: 'Jumlah Penjualan',
+                    data: penjualanData,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
