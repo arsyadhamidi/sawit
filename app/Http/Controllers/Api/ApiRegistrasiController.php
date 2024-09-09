@@ -37,6 +37,7 @@ class ApiRegistrasiController extends Controller
         // Cek jika validasi gagal
         if ($validator->fails()) {
             return response()->json([
+                'status' => 400,
                 'success' => false,
                 'message' => 'Validation Error',
                 'errors' => $validator->errors(),
@@ -63,6 +64,7 @@ class ApiRegistrasiController extends Controller
 
         // Mengembalikan response sukses
         return response()->json([
+            'status' => 200,
             'success' => true,
             'message' => 'User registered successfully',
             'user' => $user,

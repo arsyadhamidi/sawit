@@ -3,35 +3,42 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ApiLoginController extends Controller
 {
     public function authenticate(Request $request)
     {
-        // Validasi input
+        // Validate input
         $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
-        // Coba autentikasi pengguna menggunakan username dan password
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            // Jika autentikasi berhasil, dapatkan data user
-            $user = Auth::user();
+        // Find user by username
+        $user = User::where('username', $request->username)->first();
+
+        // Check if user exists and password is correct
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Log in the user
+            Auth::login($user);
 
             return response()->json([
+                'status' => 200,
                 'success' => true,
-                'message' => 'Login successful',
+                'message' => 'Login Berhasil',
                 'user' => $user,
             ], 200);
         }
 
-        // Jika autentikasi gagal
+        // If authentication fails
         return response()->json([
+            'status' => 400,
             'success' => false,
-            'message' => 'Invalid username or password',
-        ], 401);
+            'message' => 'Username atau Password anda salah',
+        ], 400);
     }
 }
