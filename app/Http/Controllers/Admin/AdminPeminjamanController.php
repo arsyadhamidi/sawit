@@ -33,17 +33,16 @@ class AdminPeminjamanController extends Controller
             'tgl_akhir' => 'required',
             'nominal' => 'required',
             'alasan' => 'required',
-            'status' => 'required',
         ], [
             'users_id.required' => 'Pekerja wajib diisi',
             'tgl_awal.required' => 'Tanggal Awal Pembayaran wajib diisi',
             'tgl_akhir.required' => 'Tanggal Akhir Pembayaran wajib diisi',
             'nominal.required' => 'Nominal Pembayaran wajib diisi',
             'alasan.required' => 'Alasan Pembayaran wajib diisi',
-            'status.required' => 'Status Pembayaran wajib diisi',
         ]);
 
         $validated['nomor_peminjaman'] = mt_rand(1000000, 9999999);
+        $validated['status'] = 'Proses';
 
         Peminjaman::create($validated);
 
@@ -91,10 +90,10 @@ class AdminPeminjamanController extends Controller
         return redirect()->route('data-peminjaman.index')->with('success', 'Selamat ! Anda berhasil menghapus data');
     }
 
-    public function diterima($id)
+    public function disetujui($id)
     {
         Peminjaman::where('id', $id)->update([
-            'status' => 'Diterima',
+            'status' => 'Disetujui',
         ]);
         return back()->with('success', 'Selamat ! Anda berhasil memperbaharui Peminjaman');
     }

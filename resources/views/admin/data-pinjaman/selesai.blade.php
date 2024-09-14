@@ -1,21 +1,16 @@
 @extends('admin.layout.master')
-@section('menuDataTransaksi', 'active')
-@section('menuDataPeminjaman', 'active')
+@section('menuDataPinjamans', 'active')
+@section('menuPinjamanSelesai', 'active')
 
 @section('content')
     <div class="row">
         <div class="col-xl-6 grid-margin stretch-card flex-column">
-            <h5 class="text-titlecase">Data Peminjaman</h5>
+            <h5 class="text-titlecase">Data Peminjaman Selesai</h5>
         </div>
     </div>
     <div class="card">
-        <div class="card-header">
-            <a href="{{ route('data-peminjaman.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i>
-                Tambah Data Peminjaman
-            </a>
-        </div>
         <div class="card-body table-responsive">
+            <h4 class="card-title">Pinjaman dalam tahap Selesai</h4>
             <div class="row">
                 <div class="col-lg">
                     <table class="table table-bordered table-striped" id="myTable">
@@ -29,7 +24,6 @@
                                 <th style="text-align:center">Nominal</th>
                                 <th style="text-align:center">Alasan</th>
                                 <th style="text-align:center">Status</th>
-                                <th style="text-align:center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,33 +37,9 @@
                                     <td>Rp. {{ $data->nominal ?? '0' }},-</td>
                                     <td>{{ $data->alasan ?? '-' }}</td>
                                     <td>
-                                        @if ($data->status == 'Disetujui')
-                                            <span class="badge badge-primary">{{ $data->status ?? '-' }}</span>
-                                        @elseif($data->status == 'Ditolak')
-                                            <span class="badge badge-danger">{{ $data->status ?? '-' }}</span>
-                                        @elseif($data->status == 'Proses')
-                                            <span class="badge badge-warning">{{ $data->status ?? '-' }}</span>
-                                        @elseif($data->status == 'Dikembalikan')
-                                            <span class="badge badge-info">{{ $data->status ?? '-' }}</span>
-                                        @elseif($data->status == 'Selesai')
+                                        @if ($data->status == 'Selesai')
                                             <span class="badge badge-success">{{ $data->status ?? '-' }}</span>
-                                        @else
-                                            <span class="badge badge-secondary">Tidak Tersedia</span>
                                         @endif
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('data-peminjaman.destroy', $data->id) }}" method="POST"
-                                            class="d-flex">
-                                            @csrf
-                                            <a href="{{ route('data-peminjaman.edit', $data->id) }}"
-                                                class="btn btn-sm btn-outline-info">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <button type="submit" class="btn btn-sm btn-outline-danger mx-2"
-                                                id="hapusData">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -94,7 +64,7 @@
     </script>
     <script>
         // Mendengarkan acara klik tombol hapus
-        $(document).on('click', '#hapusData', function(event) {
+        $(document).on('click', '#diselesaikanData', function(event) {
             event.preventDefault(); // Mencegah perilaku default tombol
 
             // Ambil URL aksi penghapusan dari atribut 'action' formulir
@@ -103,8 +73,8 @@
             // Tampilkan SweetAlert saat tombol di klik
             Swal.fire({
                 icon: 'question',
-                title: 'Hapus Data Peminjaman ?',
-                text: 'Apakah anda yakin untuk menghapus data ini?',
+                title: 'Pinjaman Ini Selesai ?',
+                text: 'Apakah anda yakin untuk pinjaman ini telah selesai?',
                 showCancelButton: true, // Tampilkan tombol batal
                 confirmButtonText: 'Ya',
                 confirmButtonColor: '#28a745', // Warna hijau untuk tombol konfirmasi

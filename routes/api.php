@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\ApiDashboardPageController;
+use App\Http\Controllers\Api\ApiJadwalPanenController;
 use App\Http\Controllers\Api\ApiLoginController;
+use App\Http\Controllers\Api\ApiPeminjamanPageController;
 use App\Http\Controllers\Api\ApiPetaniPageController;
 use App\Http\Controllers\Api\ApiRegistrasiController;
 use Illuminate\Http\Request;
@@ -27,3 +29,11 @@ Route::post('register-action', [ApiRegistrasiController::class, 'register']);
 Route::get('/harga-sawit', [ApiDashboardPageController::class, 'hargasawit']);
 Route::get('/data-petani/{id}', [ApiPetaniPageController::class, 'index']);
 Route::post('/data-petani/update/{id}', [ApiPetaniPageController::class, 'update']);
+Route::get('/jadwal-panen/{id}', [ApiJadwalPanenController::class, 'index']);
+Route::post('/jadwal-panen/store', [ApiJadwalPanenController::class, 'store']);
+Route::post('/jadwal-panen/update/{id}', [ApiJadwalPanenController::class, 'update']);
+Route::post('/jadwal-panen/destroy/{id}', [ApiJadwalPanenController::class, 'destroy']);
+Route::get('/peminjaman/{id}', [ApiPeminjamanPageController::class, 'index']);
+Route::post('/peminjaman/store', [ApiPeminjamanPageController::class, 'store']);
+Route::post('/peminjaman/update/{id}', [ApiPeminjamanPageController::class, 'update']);
+Route::post('/peminjaman/destroy/{id}', [ApiPeminjamanPageController::class, 'destroy']);

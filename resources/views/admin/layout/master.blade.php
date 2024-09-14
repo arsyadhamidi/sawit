@@ -335,6 +335,58 @@
                                 </ul>
                             </div>
                         </li>
+                        @php
+                            $countProses = \App\Models\Peminjaman::where('status', 'Proses')->count();
+                            $countSetuju = \App\Models\Peminjaman::where('status', 'Disetujui')->count();
+                            $countKembali = \App\Models\Peminjaman::where('status', 'Dikembalikan')->count();
+
+                            $countTotal = $countProses + $countSetuju + $countKembali;
+                        @endphp
+                        <li class="nav-item">
+                            <a class="nav-link @yield('menuDataPinjamans')" data-toggle="collapse" href="#data-pinjaman"
+                                aria-expanded="false" aria-controls="data-pinjaman">
+                                <i class="typcn typcn-document-text menu-icon"></i>
+                                <span class="menu-title">
+                                    Data Pinjaman
+                                </span>
+                                @if (!empty($countTotal))
+                                    <div class="badge badge-danger">{{ $countTotal ?? '0' }}</div>
+                                @endif
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="data-pinjaman">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link @yield('menuPinjamanProses')"
+                                            href="{{ route('status-pinjaman.proses') }}">
+                                            Proses
+                                            @if (!empty($countProses))
+                                                <div class="badge badge-danger">{{ $countProses ?? '0' }}</div>
+                                            @endif
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @yield('menuPinjamanDisetujui')"
+                                            href="{{ route('status-pinjaman.indexdisetujui') }}">
+                                            Disetujui
+                                            @if (!empty($countSetuju))
+                                                <div class="badge badge-danger">{{ $countSetuju ?? '0' }}</div>
+                                            @endif
+                                        </a>
+                                    </li>
+                                    <li class="nav-item"> <a class="nav-link @yield('menuPinjamanDikembalikan')"
+                                            href="{{ route('status-pinjaman.indexdikembalikan') }}">
+                                            Dikembalikan
+                                            @if (!empty($countKembali))
+                                                <div class="badge badge-danger">{{ $countKembali ?? '0' }}</div>
+                                            @endif
+                                        </a>
+                                    </li>
+                                    <li class="nav-item"> <a class="nav-link @yield('menuPinjamanSelesai')"
+                                            href="{{ route('status-pinjaman.indexselesai') }}">Selesai</a></li>
+                                </ul>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link @yield('menuDataAutentikasi')" data-toggle="collapse" href="#ui-basic"
                                 aria-expanded="false" aria-controls="ui-basic">

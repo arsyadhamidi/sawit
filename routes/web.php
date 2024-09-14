@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminPembelianController;
 use App\Http\Controllers\Admin\AdminPeminjamanController;
 use App\Http\Controllers\Admin\AdminPenjualanController;
 use App\Http\Controllers\Admin\AdminPetaniController;
+use App\Http\Controllers\Admin\AdminStatusPinjamanController;
 use App\Http\Controllers\Admin\AdminUpahController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -71,6 +72,16 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // Admin
     Route::group(['middleware' => [CekLevel::class . ':1']], function () {
 
+        // Data Pinjaman
+        Route::get('/status-pinjaman/proses', [AdminStatusPinjamanController::class, 'proses'])->name('status-pinjaman.proses');
+        Route::get('/status-pinjaman/indexdisetujui', [AdminStatusPinjamanController::class, 'indexdisetujui'])->name('status-pinjaman.indexdisetujui');
+        Route::get('/status-pinjaman/indexdikembalikan', [AdminStatusPinjamanController::class, 'indexdikembalikan'])->name('status-pinjaman.indexdikembalikan');
+        Route::get('/status-pinjaman/indexselesai', [AdminStatusPinjamanController::class, 'indexselesai'])->name('status-pinjaman.indexselesai');
+        Route::post('/data-peminjaman/diselesaikan/{id}', [AdminStatusPinjamanController::class, 'diselesaikan'])->name('data-peminjaman.diselesaikan');
+        Route::post('/data-peminjaman/dikembalikan/{id}', [AdminStatusPinjamanController::class, 'dikembalikan'])->name('data-peminjaman.dikembalikan');
+        Route::post('/data-peminjaman/disetujui/{id}', [AdminStatusPinjamanController::class, 'disetujui'])->name('data-peminjaman.disetujui');
+        Route::post('/data-peminjaman/ditolak/{id}', [AdminStatusPinjamanController::class, 'ditolak'])->name('data-peminjaman.ditolak');
+
         // Upah
         Route::get('/data-upah', [AdminUpahController::class, 'index'])->name('data-upah.index');
         Route::get('/data-upah/create', [AdminUpahController::class, 'create'])->name('data-upah.create');
@@ -86,8 +97,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/data-peminjaman/edit/{id}', [AdminPeminjamanController::class, 'edit'])->name('data-peminjaman.edit');
         Route::post('/data-peminjaman/store', [AdminPeminjamanController::class, 'store'])->name('data-peminjaman.store');
         Route::post('/data-peminjaman/update/{id}', [AdminPeminjamanController::class, 'update'])->name('data-peminjaman.update');
-        Route::post('/data-peminjaman/diterima/{id}', [AdminPeminjamanController::class, 'diterima'])->name('data-peminjaman.diterima');
-        Route::post('/data-peminjaman/ditolak/{id}', [AdminPeminjamanController::class, 'ditolak'])->name('data-peminjaman.ditolak');
         Route::post('/data-peminjaman/destroy/{id}', [AdminPeminjamanController::class, 'destroy'])->name('data-peminjaman.destroy');
 
         // Data Penjualan

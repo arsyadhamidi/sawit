@@ -26,10 +26,10 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label>Pilih Pekerja</label>
+                            <label>Pilih Users Registrasi</label>
                             <select name="users_id" class="form-control @error('users_id') is-invalid @enderror"
                                 style="width: 100%" id="selectedPekerja">
-                                <option value="" selected>Pilih Pekerja</option>
+                                <option value="" selected>Pilih Users Registrasi</option>
                                 @foreach ($users as $data)
                                     <option value="{{ $data->id }}"
                                         {{ old('users_id') == $data->id ? 'selected' : '' }}>{{ $data->name ?? '-' }}
@@ -79,23 +79,6 @@
                             <textarea name="alasan" class="form-control @error('alasan') is-invalid @enderror" rows="5"
                                 placeholder="Masukan Alasan Peminjaman">{{ old('alasan') }}</textarea>
                             @error('alasan')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label>Pilih Status</label>
-                            <select name="status" class="form-control @error('status') is-invalid @enderror"
-                                style="width: 100%" id="selectedStatus">
-                                <option value="" selected>Pilih Status</option>
-                                <option value="Diterima" {{ old('status') == 'Diterima' ? 'selected' : '' }}>Diterima
-                                </option>
-                                <option value="Ditolak" {{ old('status') == 'Ditolak' ? 'selected' : '' }}>Ditolak
-                                </option>
-                                <option value="Proses" {{ old('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
-                            </select>
-                            @error('status')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
